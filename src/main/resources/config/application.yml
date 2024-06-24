@@ -1,0 +1,52 @@
+#server
+server:
+  port: 8080
+  shutdown: graceful
+
+#spring
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+  main:
+    allow-circular-references: true
+  profiles:
+    active: local
+  datasource:
+    master:
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      jdbc-url: jdbc:sqlserver://;serverName=localhost;databaseName=qcastdb
+      username: qcast
+      password: qcast1234!
+      maximum-pool-size: 4
+      pool-name: Master-HikariPool
+      #      connection-test-query: SELECT 1
+    read:
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      jdbc-url: jdbc:sqlserver://;serverName=localhost;databaseName=qcastdb
+      username: qcast
+      password: qcast1234!
+      maximum-pool-size: 4
+      pool-name: Read-HikariPool
+  #      connection-test-query: SELECT 2
+
+management:
+  endpoints:
+    enabled-by-default: false
+    jmx:
+      exposure:
+        exclude:
+          - "*"
+    web:
+      base-path: /act
+      exposure:
+        include:
+          - info
+          - health
+        exclude:
+          - env
+          - beans
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true

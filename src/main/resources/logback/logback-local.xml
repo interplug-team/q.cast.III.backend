@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.padual.com/java/logback.xsd">
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<springProperty scope="context" name="ACTIVE_PROFILE" source="spring.profiles.active"/>
+	<property name="LOG_HOME" value="/logs/bo-api/"/>
+	<property name="LOG_FILE" value="${LOG_HOME}${ACTIVE_PROFILE}.order.bo.api"/>
+	<property name="LOG_FILE_EXT" value=".log"/>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			<charset>${CONSOLE_LOG_CHARSET}</charset>
+		</encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_FILE}${LOG_FILE_EXT}</file>
+		<encoder>
+			<pattern>${FILE_LOG_PATTERN}</pattern>
+			<charset>${FILE_LOG_CHARSET}</charset>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}${LOG_FILE_EXT}</fileNamePattern>
+		</rollingPolicy>
+	</appender>
+
+	<logger name="jdbc" level="warn"/>
+	<logger name="com.zaxxer.hikari" level="info"/>
+	<logger name="jdbc.sqltiming" level="debug" />
+
+	<logger name="com.cj.freshway.order" level="debug" />
+
+	<root level="warn">
+		<appender-ref ref="CONSOLE" />
+<!--		<appender-ref ref="FILE" />-->
+	</root>
+
+</configuration>
