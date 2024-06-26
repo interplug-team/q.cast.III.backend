@@ -14,7 +14,7 @@ spring:
   datasource:
     master:
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      jdbc-url: jdbc:sqlserver://;serverName=localhost;databaseName=qcastdb
+      jdbc-url: jdbc:log4jdbc:sqlserver://localhost:1433;databaseName=qcastdb;encrypt=true;trustServerCertificate=true
       username: qcast
       password: qcast1234!
       maximum-pool-size: 4
@@ -22,7 +22,7 @@ spring:
       #      connection-test-query: SELECT 1
     read:
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      jdbc-url: jdbc:sqlserver://;serverName=localhost;databaseName=qcastdb
+      jdbc-url: jdbc:log4jdbc:sqlserver://localhost:1433;databaseName=qcastdb;encrypt=true;trustServerCertificate=true
       username: qcast
       password: qcast1234!
       maximum-pool-size: 4
@@ -50,3 +50,7 @@ management:
       enabled: true
     health:
       enabled: true
+
+# log
+logging:
+  config: classpath:logback/logback-${spring.profiles.active:local}.xml

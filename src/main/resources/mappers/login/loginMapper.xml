@@ -7,7 +7,7 @@
         /* sqlid : com.interplug.qcast.login.findByLoginId */
         select 1
         from login_user
-        where login_id = #{loginId}
-          and logind_pwd = #{loginPwd}
+        where login_id = #{username}
+          and login_pwd = #{password}
     </select>
 </mapper>
